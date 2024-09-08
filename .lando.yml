@@ -1,0 +1,27 @@
+name: laravel-api
+recipe: laravel
+config:
+  php: '8.2'
+  webroot: public
+  database: mysql
+
+services:
+  appserver:
+    type: php:8.2
+    build_as_root:
+      - apt-get update -y
+      - apt-get install -y nodejs npm
+  database:
+    type: mysql:8.0
+  phpmyadmin:
+    type: phpmyadmin
+    hosts:
+      - database
+
+tooling:
+  composer:
+    service: appserver
+  npm:
+    service: appserver
+  artisan:
+    service: appserver
